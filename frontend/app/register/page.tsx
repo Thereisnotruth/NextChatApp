@@ -7,10 +7,12 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useFormState } from 'react-dom'
 
-import { register } from '../actions/user.action'
+import { register } from '@/actions/user.action'
 
 export default function Home() {
-  const [state, formAction] = useFormState(register, { error: undefined })
+  const [state, formAction] = useFormState(register, {
+    success: false,
+  })
   return (
     <div className="min-h-screen bg-slate-800 text-white flex justify-center items-center">
       <Card className="w-[480px]">
