@@ -1,9 +1,15 @@
 import express, { Express, Request, Response } from 'express'
 import bodyParser from 'body-parser'
-import { Client, Query } from 'pg'
+import { Client } from 'pg'
+import cors from 'cors'
+import http from 'http'
+import { Server, Socket } from 'socket.io'
 
 const app: Express = express()
 const port = process.env.PORT || 5000
+
+app.use(cors())
+app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -77,6 +83,33 @@ app.post('/register', (req: Request, res: Response) => {
     })
 })
 
-app.listen(Number(port), '0.0.0.0', () => {
+const server = http.createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+  },
+})
+
+let chatMessages: Array<{
+  id: string
+  message: string
+}> = []
+
+let participants: Array<string> = []
+io.on('connection', (socket: Socket) => {
+  socket.on('message', (data: { id: string; message: string }) => {
+    console.log(data)
+    chatMessages.push(data)
+    io.emit('message', data)
+  })
+  socket.on('join', (data: { id: string }) => {
+    console.log('Join: ' + data.id)
+    participants.push(data.id)
+    io.emit('join', participants)
+  })
+})
+
+server.listen(Number(port), '0.0.0.0', () => {
   console.log(`[server]: Server is running at https://localhost:${port}`)
 })

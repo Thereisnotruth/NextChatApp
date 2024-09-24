@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useUserStore } from '@/providers/user-store-provider'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { login as loginService } from '@/services/user.service'
+import { login, register } from '@/services/user.service'
 
 export async function loginAction({
   id,
@@ -13,10 +13,11 @@ export async function loginAction({
   id: string
   password: string
 }) {
-  // Validation 처리는 여기서
-  const res = await loginService({ id, password })
+  // validation
+  const res = await login({ id, password })
 
   if (res.status === 200) {
+    revalidatePath('/')
     return {
       id,
     }
@@ -24,22 +25,19 @@ export async function loginAction({
   return { id: null }
 }
 
-export async function register(prevState: any, formData: FormData) {
-  const id = formData.get('id')
-  const password = formData.get('password')
+export async function registerAction({
+  id,
+  password,
+}: {
+  id: string
+  password: string
+}) {
+  const res = await register({ id, password })
 
-  try {
-    await axios.post('http://localhost:5000/register', {
-      id,
-      password,
-    })
-  } catch (error) {
+  if (res.status === 200) {
     return {
-      success: false,
+      id,
     }
   }
-
-  return {
-    success: true,
-  }
+  return { id: null }
 }

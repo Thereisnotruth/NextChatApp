@@ -14,7 +14,9 @@ import { redirect } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const { id, setUser } = useUserStore()()
+  const { id, setUser, unsetUser } = useUserStore()()
+
+  useEffect(() => unsetUser(), [])
 
   const [userId, setUserId] = useState('')
   const [userPassword, setUserPassword] = useState('')
@@ -30,8 +32,14 @@ export default function Home() {
           <form
             onSubmit={async (event) => {
               event.preventDefault()
-              setUser(await loginAction({ id: userId, password: userPassword }))
-              router.push('/chat')
+              const res = await loginAction({
+                id: userId,
+                password: userPassword,
+              })
+              if (res.id !== null) {
+                setUser({ id: res.id })
+                router.push('/chat')
+              }
             }}
           >
             <div className="flex flex-col gap-4">
