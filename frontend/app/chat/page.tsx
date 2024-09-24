@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input'
 import { useUserStore } from '@/providers/user-store-provider'
 import { io, Socket } from 'socket.io-client'
 
-const chatSocket: Socket = io('ws://localhost:5000')
+const chatSocket: Socket = io(process.env.WS_URL || 'ws://localhost:5000')
 
 type ChatMessage = {
   id: string
