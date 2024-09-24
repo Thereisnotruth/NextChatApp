@@ -7,6 +7,11 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Typescript + Node.js + Express Server')
 })
 
+app.post('/login', (req: Request, res: Response) => {
+  console.log('Succcess')
+  res.send(req)
+})
+
 app.listen(Number(port), '0.0.0.0', () => {
   console.log(`[server]: Server is running at https://localhost:${port}`)
 })
