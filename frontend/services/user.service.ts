@@ -7,7 +7,7 @@ export async function login({
   id: string
   password: string
 }) {
-  const { data } = await axios.post('http://localhost:5000/login', {
+  const { data } = await axios.post(process.env.API_URL + '/login', {
     id,
     password,
   })
@@ -22,7 +22,7 @@ export async function register({
   id: string
   password: string
 }) {
-  const { data } = await axios.post('http://localhost:5000/register', {
+  const { data } = await axios.post(process.env.API_URL + '/register', {
     id,
     password,
   })
