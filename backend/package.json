@@ -11,13 +11,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "body-parser": "^1.20.3",
     "D": "^1.0.0",
     "express": "^4.21.0",
+    "pg": "^8.13.0",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^22.5.5",
+    "@types/pg": "^8.11.10",
     "nodemon": "^3.1.7",
     "typescript": "^5.6.2"
   }
