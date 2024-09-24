@@ -8,8 +8,13 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.post('/login', (req: Request, res: Response) => {
-  console.log('Succcess')
-  res.send(req)
+  console.log('Login Succcess')
+  res.json(req.body)
+})
+
+app.post('/register', (req: Request, res: Response) => {
+  console.log('Register Succcess')
+  res.json(req.body)
 })
 
 app.listen(Number(port), '0.0.0.0', () => {

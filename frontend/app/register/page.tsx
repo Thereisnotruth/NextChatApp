@@ -1,24 +1,35 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import { useFormState } from 'react-dom'
+
+import { register } from '../actions/user.action'
 
 export default function Home() {
+  const [state, formAction] = useFormState(register, {
+    errors: {
+      id: undefined,
+      password: undefined,
+    },
+  })
+
   return (
     <div className="min-h-screen bg-slate-800 text-white flex justify-center items-center">
       <Card className="w-[480px]">
         <CardHeader>
-          <CardTitle>Next Chat App</CardTitle>
+          <CardTitle className="flex justify-between items-center">
+            Next Chat App
+            <Button variant="outline" asChild>
+              <Link href="/">back</Link>
+            </Button>
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={formAction}>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="id">ID</Label>
@@ -28,12 +39,10 @@ export default function Home() {
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" name="password" />
               </div>
-              <div className="flex justify-between">
-                <Button type="submit" variant="outline" asChild>
-                  <Link href="/register">Register</Link>
-                </Button>
-                <Button>Login</Button>
-              </div>
+
+              <Button type="submit" className="w-full">
+                Register
+              </Button>
             </div>
           </form>
         </CardContent>
