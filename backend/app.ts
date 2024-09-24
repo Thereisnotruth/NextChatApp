@@ -18,8 +18,8 @@ app.use(bodyParser.json())
 const client = new Client({
   user: process.env.PGUSER || 'NEXTCHATAPP',
   host: process.env.PGHOST || 'localhost',
-  database: process.env.POSTGRES_DB || 'next-chat-app',
-  password: process.env.POSTGRES_PASSWORD || '8053',
+  database: process.env.PGDATABASE || 'next-chat-app',
+  password: process.env.PGPASSWORD || '8053',
   port: process.env.PGPORT ? Number(process.env.PGPORT) : 5432,
 })
 
