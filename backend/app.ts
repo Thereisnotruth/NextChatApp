@@ -16,12 +16,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const client = new Client({
-  user: 'NEXTCHATAPP',
-  host: 'localhost',
-  database: 'next-chat-app',
-  password: '8053',
-  port: 5432,
+  user: process.env.PGUSER || 'NEXTCHATAPP',
+  host: process.env.PGHOST || 'localhost',
+  database: process.env.POSTGRES_DB || 'next-chat-app',
+  password: process.env.POSTGRES_PASSWORD || '8053',
+  port: process.env.PGPORT ? Number(process.env.PGPORT) : 5432,
 })
+
 client.connect((error) => {
   if (error) console.error('connection error')
   else console.log('success')
