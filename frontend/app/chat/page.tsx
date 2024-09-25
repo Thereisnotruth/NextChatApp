@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input'
 import { useUserStore } from '@/providers/user-store-provider'
 import { io, Socket } from 'socket.io-client'
 
-const chatSocket: Socket = io(process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:5000')
+const chatSocket: Socket = io('ws://nextchatapp-production.up.railway.app')
 
 console.log(process.env.WS_URL)
 
