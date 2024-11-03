@@ -4,6 +4,18 @@ const withPWA = withPWAInit({
     dest: 'public',
 })
 
-const nextConfig = {};
+const nextConfig = {
+    basePath: '/test',
+     async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/test',
+                basePath: false,
+                permanent: false
+            }
+        ]
+    }
+};
 
 export default withPWA(nextConfig);
