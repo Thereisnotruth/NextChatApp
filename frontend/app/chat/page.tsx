@@ -13,7 +13,9 @@ import { Input } from '@/components/ui/input'
 import { useUserStore } from '@/providers/user-store-provider'
 import { io, Socket } from 'socket.io-client'
 
-const chatSocket: Socket = io('ws://localhost:5000')
+const chatSocket: Socket = io('wss://nextchatapp-production.up.railway.app')
+
+console.log(process.env.WS_URL)
 
 type ChatMessage = {
   id: string
@@ -37,6 +39,7 @@ export default function Chat() {
   }
 
   function getMessagesSocketHandler(data: ChatMessage) {
+    console.log(data)
     setChatLog((prev) => [...prev, data])
   }
 
