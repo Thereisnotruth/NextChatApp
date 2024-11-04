@@ -5,6 +5,7 @@ function doesPathStartWithAny(path: string, substrings: string[]) {
 }
 export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname
+  console.log(req.nextUrl.pathname)
   if (
     doesPathStartWithAny(pathname, [
       '/api',
