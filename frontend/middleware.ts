@@ -17,7 +17,6 @@ export function middleware(req: NextRequest) {
       '/manifest.json',
       '/sw.js',
       '/images',
-      '/workbox',
     ])
   ) {
     return NextResponse.next()
